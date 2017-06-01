@@ -1,0 +1,258 @@
+#cloud-config
+
+hostname: coreos3
+
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAgEArgRS9p4JBq6CGuugYkf8PW7lejJpcJzDdjntND8wKhGUibkZRXcrxI40ClDEp7xLPzIzx6YSyV77AA16ers6AZs83FVSQY/sVO/qTXReyjHKJ1UhB3NQWsMI6XO+mcHFef50WLJ4rHd6b3A8swwF4XK4UtF8K6cDtJnJ1w4DmGwf3uAec0dUWF7UF4nP9VkTbH4bWETHPO7VXy5AcXx3rkzFF6+krtvrUHvC6QlzcUT0ofqb3mLBbWstaznE/lqXRFqHVwkkSLTy476qYM5286+UOTfTcwjsVCiohpoihPGWp4UE8ROKSmP8wLdYGHEJrB9k5FJGkZ5RjLhQ9ZIW9Dn/cgqFjOpvICe+26Zc7qaKTDp9vTCVkrZ94RV1e8gWlwbWcdNavuvpKcIxaNVmsxZ3RUiI5yewdGR3PCEbRkBiKq49E9cmitgbYWnn1jTQz9XXFSXL2MxRA4df6khmPZtKukvdjljt4jfbR40CZ5Q6VtJLO4yN7oYUWE+z3+YJtalT2VYO+L12phVAwjLlwn7JXijzXckBt6mCtTmQFCLBek/Y3EGdYpKnGLCfwvenpebxUOrhZFX8RJiHH8RQqUVv9LYtCdt88RdzAG15FlHufYQQHC+t2nZDrtW+XHpLBPgLFmbfDf03OIfIg/hxPwCDSPKqWgnpWJukdmuVze8= root@monitoramento
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYymPFCq/EpbDr9Y5az6z6s3EO1WiiHboeyB94dKSplOG6GSddtwSu4WTr+QSPNks7farRQtAsQUi4j93fVD+T6Nt8k6nWLpbtUx2DLp17rsqi67RO1QixdywwcZwdYCaBztmaZlfPHVVC/rBXeonj8uz51AgpYrQCvnOXrCNWt6m7OpYn3b+AdUC3A3gu8b2KW7cmS1pLZMctfvAbMcFd93a4qO6J8J5dX/ZGG2o/l8Tt82GLGam+3x5Jyi6qa61RxHAbjibdo0WoSrQdGh0bU8twvaTi9bbdeOqa0UVdxDWfpAZY/HBxfRnb9FSVCb+BB9sDB3eyS0CC7KajFqe5 humbertos@sj-ctic-37246
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQ7vlk1mQ4AZ/3AvstDmio9szcVlXA6LLX1lfgQoK5a1ob+K3wRBfEyVqsXqdAB8KGwDi4uRWTMMGYWklhHNRRTqLZj+RB1cIZWpVIEOU3GK/9DIbw0jc4J48h2ruUwnh5oqKeVT0xMU4Gdhsgp4hCSJBPJutBsm3ijJT8+9Qhp1FxK5C05h73KrbP0NWXOSV2XVqOVtt+9mF6pROa6z4+dI0HdjmsJEXgu7JOfSBQxOnmGd7ZosQc6T/Qxzwoq+qmmaojwDarvzsfPlgnpljd28xm2EicAuLKlvZs2Mz/0YW1NvwBHyq7TbX6FI+JU+qtNlVEmphhgrsthdBmU1v9Y0m3F5hSaKBym0kSVEH31k/EUglYj5Aop9kI+8hoNtDjCaXSPRY+xAqgS5PRb52+BeFfBqp7h+gTmh2qa4RZpa/zosgJUuQIAWI48s0izFIO5l997XY2soZ0/DBrYbkZAMgKBTF1L4/A8VlJdYVtJ6vwGx7YHnDkrWIO5BBtQxmG8Gi6jgoxCpT4tDuon+HcBLM0w0RuhF3QpmgKGDL9KesN6khwbMHEEpPhnuo6OFUu78uw9xiKgTcZ1PZxv/P5j8qoXNW02e5jWbXa/2al9YkO+O3YH+7YEft2hldJ4OF4S/AuicBjghCCnhCK2YWzhmdhNqkYoe7Ygo348aohFQ== marcelo.muniz@sj-lin-ctic-744529
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDHGABNL4VckVVEjgNJWrfFg6LqsypziY18hzVx12F/MA/q6RSJY7Wg/X5HRG7MKEdUezKCz7b6eSaTDP982Di1KD3YFLOnl8IJOf4fwxkwX7y7MX0xozDuJlhtMlJD8/g/n+hfybzsbQQkT0FC3onfOni7V8UfiNYq4wYNj6Vp0uj5eKNXUYeMe5yKLkCQa5r3pIH/4mTj/TF0pWMBjntTjxlstG7Z0a0r77UzMjFZAdGjfNfW3uSm3icyo1StIJ88I7WatJnhPDK3K7S/l8Ls+HU5tFh7AuPTVqPuiLtLEQ11XhcBKdIjewiGD6wfvyFVwCC94mWJnhS7rltIMYIFVZORgB5UuEUvZNevztyWhMb4Ho2Wi4jxSuU2If5huVRSmskeQe750E6FFWl1hB7XRDKGKbWHhG0BOCuB9h8wnpvn9s+7x1vvTdbnEx516JNyRGELtoElG20MYADou1N66yzusN/tdSeBO9BfvD6Sts/5HX8j0NNogF8swJ7DQEj0bbFoqBIeyfnJrQt+YJ85RuN/rexzYPYHEO6K7YR+u2cz4s5AJT9VCSVzVhG6ibj6RcBNCFTdok3qvAnwv5arvIuALeTZLVe+FFu5AKlJ2kQ+dtYqcXyeP5KyoHI2h5WzrxqTl/iOkoSFeTk+jt54DRGwP4kjBgGFdGeeNyzKmQ== rmartins@sj-lin-744396
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCkquy+GTCF0lErOBkfvSlAHw5vOGQl3xsT7wYh6XwUwqKY4R2YhxnV+hI0KXvRNABfQIgjrqIC7phZutn24GCgPbLkc1o8WyaX56TjLk94cVfDLCyGgcLkzr6qAOGMEmAhzmZpTIGoo3V3BhT1ubm5cpR6V8RGNW0sXYEA89/g55C61+cCcN3HqjnLfg50yg+uyfsEFrNmQscZZF/yYY8ig1ahwraXm/JXHwQaoeUyh2FOSlOUUduFMD6ZqsuSwe6prL5lxFlkh+v4NyjBi19SzY+pGvlXX1ZFHvRBoGy67HSwLfU0nwJE87EZTZfCcCGVSENreTMXejF2QgKMAWaCU0B5w2sXgbSBov1u3vwRqNF7iUNtT9QCh4NKXTWYiGkTVmiRfmMipUMMsMaZScnPWtMOnHkTBRpFieo8mffaVCZEg73zhoZIX+ZIuyUmb2/bGoj0L4eGgtH85/Ym+HJ5wWhkV+HTp5UQOyL+5sx8YzDOKXe3oln289I8dZvtSm3bUOIA+yBAusNiq+u36rjVCuYbQ4Cte7HJ4mJk3B4JRGhvvWuALO3A8DzcpsNFqBVhGxkTRIyqg3EIajkAFNv5JP6dhutvithdC42srrcOaFB5qDiQ3IXHLgEsQzwOKdXmoFb8PunKWI+0Ce/yq8fq5Lt9P6lBPdIHu9HYF2yM1w== guiealbuquerque@gmail.com
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDm6baOg9AXEsNZCDwmIr32SEwfhoVvmT4WrsfMtJlPD5zfpGydC0oNbBtmB7DbwANSs79hCgsQw2SGgOumUQMPTCjdrK3DgpUuHZHnLbf/LdOvaM34HzVEwSJ8E24H3272ypdW9LxpNfDp3lwVv9UHQqc1pZ69nQkkEOq7OMozQD8inWDLhMfdXfkGtr8LwYV+Cq9H0jy+V5yAYkC5wMwf/uIVTwfocPZ4wn0iQTj6l/JVInb6A1RsxfhSbHtU+AXYxVa5zi/KJFSExkaIiuKYdTTN6/4jRJuwld7SdJ+f4c8Vh481WqisJCF339lGcVbfoTGdk7JwRNj/rWJrzBCZelVJxohB9eMC5yG6HFWQTb3CwboR6trQ0BK/pcwQMx90UlA8LEdNrGziO8djZIYvT4SWoZEwTe7Wq6s++YNkjs0Jjca+nK0xbci10zgApDUhWhArBdF0hIjVK22Q3g0HizpiwzTohcQfvMyIgrUmXXPAIbFF6Zit57PxzNQn9zHjz+eyznlIh119TnnbRnY7rYL9BT1sEqmb4lpl/H5H4iSfvVLsXrhWu3tXAkBFV1mUcSznfnjUJvLLPVY/p8dc5k4Ux57pOhuhwaGUC2UVjPGWRZw3hvcnqVESOPw8PduP/RWRz6xRH5BgO6YKRvvRhMtTp5+K7CSxgpBuCUcN3Q== boidacarapreta@gmail.com
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxZ6W+iZn1dlWBBxLI3ZHup8LRGk4YpnynlG8Fm4oLdM/2fWKupyl8SJDity0m13AVQBMgpR2k/BA1HLFnWjPpxsjsA03ORTVFG3zGN8Yqb0LRuPfpXmQTQtVtGkN7FD4JKyzFeY+G4J0K3mVjOO2F8pGLvrota6q0/8fNfMsHt0uDZpC9c34qM6Xq72ZChJhnq4JY0QT6fzu2BmVnjDz4eBDlrsbtzdgkNF+z1jLdd4xSYgqFhUIrhU8Bsf6vGQMR0CRFh8huKaDCb4/y2F0NmIX0Y5ycwNfOHwvUoIYJMgv0bWv8Ewfg1MsEQ2MxN67H/4/zmMjo9jM7c40R7nmFwhm4pMMCpH8R7DoLAm4g1cKt80GXaef+7OBuluVcV6qOzaIMhBhOxjZomBgw/fjnUSjWrwJEHXNsAE8/gQLaM6OyMVl0L53FL1f8CuhQC618yge9DhM2yDw7IBxxteyA6Mp1GNPSx0HFFqisEZD0q7ZxW3PQMaTqM3Gdf+ONTP1tGbEirPn3YB3erqaYwirRNERcOpJqh/h9ahi8A9HLmSgOB0JGwKPS39ZBDU4OplIWhHY4QT6orzbrO/IkNXv7DxKQjt9N/kytVpP7MNgB6Mrepi4FDA2OUNKYCZ31c29SFOAUWjjd6K5r4W3JTbJtxVjME4/ifd6oQQHFdNIl2w== gabriel.souza@sj-ctic-29736
+
+coreos:
+  #So atualiza um no por vez
+  update:
+    reboot-strategy: "etcd-lock"
+
+  locksmith:
+    window-start: Thu 11:30
+    window-length: 1h
+
+  units:
+    - name: down-interfaces.service
+      command: start
+      content: |
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/bin/ip link set eno1 down
+        ExecStart=/usr/bin/ip addr flush dev eno1
+        ExecStart=/usr/bin/ip link set ens6 down
+        ExecStart=/usr/bin/ip addr flush dev ens6
+    - name: systemd-networkd.service
+      command: restart
+
+    - name: rpc-statd.service
+      enable: true
+    - name: mnt-data.mount
+      enable: true
+      content: |
+        [Mount]
+        What=191.36.8.68:/mnt/storage/storage/kubernetes
+        Where=/mnt/data
+        Type=nfs
+        [Install]
+        WantedBy=multi-user.target
+
+    #Etcd2 - Gerenciador de conf do cluster, comunicacao entre os nodes
+    - name: etcd2.service
+      command: start
+      enable: true
+      drop-ins:
+      - name: 10-environment.conf
+        content: |
+          [Service]
+          Environment="ETCD_ADVERTISE_CLIENT_URLS=http://coreos3.sj.ifsc.edu.br:2379"
+          Environment="ETCD_DISCOVERY_SRV=sj.ifsc.edu.br"
+          Environment="ETCD_INITIAL_ADVERTISE_PEER_URLS=http://coreos3.sj.ifsc.edu.br:2380"
+          Environment="ETCD_INITIAL_CLUSTER_STATE=existing"
+          Environment="ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379"
+          Environment="ETCD_LISTEN_PEER_URLS=http://coreos3.sj.ifsc.edu.br:2380"
+          Environment="ETCD_NAME=coreos3"
+
+    #Flannel - Configura uma Subrede virtual para os Containers
+    - name: flanneld.service
+      drop-ins:
+        - name: 50-network-config.conf
+          content: |
+            [Service]
+            ExecStartPre=/usr/bin/etcdctl --discovery-srv sj.ifsc.edu.br set /coreos.com/network/config '{ "Network": "10.2.0.0/16","Backend":{"Type":"vxlan"}}'
+        - name: 40-ExecStartPre-symlink.conf
+          content: |
+            [Service]
+            ExecStartPre=/usr/bin/ln -sf /etc/flannel/options.env /run/flannel/options.env
+      command: start
+      enable: true
+
+    #Garantir que todos os containers docker so subam depois do flannel
+    - name: docker.service
+      command: start
+      enable: true
+      drop-ins:
+      - name: 40-flannel.conf
+        content: |
+          [Unit]
+          Requires=flanneld.service
+          After=flanneld.service
+          [Service]
+          ExecStartPre=/usr/bin/mkdir -p /etc/kubernetes/cni
+          EnvironmentFile=/etc/kubernetes/cni/docker_opts_cni.env
+
+    - name: kubelet.service
+      command: start
+      enable: true
+      content: |
+        [Service]
+        Environment=KUBELET_IMAGE_TAG=v1.6.1_coreos.0
+        Environment="RKT_RUN_ARGS=--uuid-file-save=/var/run/kubelet-pod.uuid \
+          --volume dns,kind=host,source=/etc/resolv.conf \
+          --mount volume=dns,target=/etc/resolv.conf \
+          --volume var-log,kind=host,source=/var/log \
+          --mount volume=var-log,target=/var/log"
+        ExecStartPre=/usr/bin/mkdir -p /etc/kubernetes/manifests
+        ExecStartPre=/usr/bin/mkdir -p /var/log/containers
+        ExecStartPre=-/usr/bin/rkt rm --uuid-file=/var/run/kubelet-pod.uuid
+        ExecStart=/usr/lib/coreos/kubelet-wrapper \
+          --api-servers=https://191.36.8.8 \
+          --cni-conf-dir=/etc/kubernetes/cni/net.d \
+          --container-runtime=docker \
+          --register-node=true \
+          --allow-privileged=true \
+          --pod-manifest-path=/etc/kubernetes/manifests \
+          --hostname-override=191.36.8.6 \
+          --cluster_dns=10.3.0.10 \
+          --cluster_domain=cluster.local \
+          --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \
+          --tls-cert-file=/etc/kubernetes/ssl/worker.pem \
+          --tls-private-key-file=/etc/kubernetes/ssl/worker-key.pem
+        ExecStop=-/usr/bin/rkt stop --uuid-file=/var/run/kubelet-pod.uuid
+        Restart=always
+        RestartSec=10
+
+        [Install]
+        WantedBy=multi-user.target
+
+write_files:
+
+  - path: /etc/coreos/update.conf
+    permissions: 0644
+    owner: root
+    content: |
+      GROUP=stable
+  - path: /etc/modprobe.d/bonding.conf
+    content: |
+      alias bond0 bonding
+        options bonding mode=4 miimon=100 lacp_rate=1
+  - path: /etc/modules
+    content: |
+      bonding
+      mii
+  - path: /etc/systemd/network/10-en.network
+    permissions: 0644
+    owner: root
+    content: |
+      [Match]
+      Name=en*
+
+      [Network]
+      Bond=bond0
+  - path: /etc/systemd/network/20-bond.netdev
+    permissions: 0644
+    owner: root
+    content: |
+      [NetDev]
+      Name=bond0
+      Kind=bond
+  - path: /etc/systemd/network/30-bond-static.network
+    permissions: 0644
+    owner: root
+    content: |
+      [Match]
+      Name=bond0
+
+      [Network]
+      DNS=191.36.8.2
+      DNS=191.36.8.3
+      Address=191.36.8.6/27
+      Gateway=191.36.8.30
+      Domains=sj.ifsc.edu.br
+
+  - path: /etc/flannel/options.env
+    permissions: 0644
+    owner: root
+    content: |
+      FLANNELD_IFACE=191.36.8.6
+      FLANNELD_ETCD_ENDPOINTS=http://localhost:2379
+
+  - path: /etc/kubernetes/cni/docker_opts_cni.env
+    permissions: 0644
+    owner: root
+    content: |
+      DOCKER_OPT_BIP=""
+      DOCKER_OPT_IPMASQ=""
+
+  - path: /etc/kubernetes/cni/net.d/10-flannel.conf
+    permissions: 0644
+    owner: root
+    content: |
+      {
+          "name": "podnet",
+          "type": "flannel",
+          "delegate": {
+              "isDefaultGateway": true
+          }
+      }
+
+  - path: /etc/kubernetes/manifests/kube-proxy.yaml
+    permissions: 0644
+    owner: root
+    content: |
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: kube-proxy
+        namespace: kube-system
+      spec:
+        hostNetwork: true
+        containers:
+        - name: kube-proxy
+          image: quay.io/coreos/hyperkube:v1.6.1_coreos.0
+          command:
+          - /hyperkube
+          - proxy
+          - --master=https://191.36.8.8
+          - --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml
+          securityContext:
+            privileged: true
+          volumeMounts:
+          - mountPath: /etc/ssl/certs
+            name: "ssl-certs"
+          - mountPath: /etc/kubernetes/worker-kubeconfig.yaml
+            name: "kubeconfig"
+            readOnly: true
+          - mountPath: /etc/kubernetes/ssl
+            name: "etc-kube-ssl"
+            readOnly: true
+        volumes:
+        - name: "ssl-certs"
+          hostPath:
+            path: "/usr/share/ca-certificates"
+        - name: "kubeconfig"
+          hostPath:
+            path: "/etc/kubernetes/worker-kubeconfig.yaml"
+        - name: "etc-kube-ssl"
+          hostPath:
+            path: "/etc/kubernetes/ssl"
+
+  - path: /etc/kubernetes/worker-kubeconfig.yaml
+    permissions: 0644
+    owner: root
+    content: |
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - name: local
+        cluster:
+          certificate-authority: /etc/kubernetes/ssl/ca.pem
+      users:
+      - name: kubelet
+        user:
+          client-certificate: /etc/kubernetes/ssl/worker.pem
+          client-key: /etc/kubernetes/ssl/worker-key.pem
+      contexts:
+      - context:
+          cluster: local
+          user: kubelet
+        name: kubelet-context
+      current-context: kubelet-context
