@@ -12,7 +12,6 @@ ssh_authorized_keys:
   - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxZ6W+iZn1dlWBBxLI3ZHup8LRGk4YpnynlG8Fm4oLdM/2fWKupyl8SJDity0m13AVQBMgpR2k/BA1HLFnWjPpxsjsA03ORTVFG3zGN8Yqb0LRuPfpXmQTQtVtGkN7FD4JKyzFeY+G4J0K3mVjOO2F8pGLvrota6q0/8fNfMsHt0uDZpC9c34qM6Xq72ZChJhnq4JY0QT6fzu2BmVnjDz4eBDlrsbtzdgkNF+z1jLdd4xSYgqFhUIrhU8Bsf6vGQMR0CRFh8huKaDCb4/y2F0NmIX0Y5ycwNfOHwvUoIYJMgv0bWv8Ewfg1MsEQ2MxN67H/4/zmMjo9jM7c40R7nmFwhm4pMMCpH8R7DoLAm4g1cKt80GXaef+7OBuluVcV6qOzaIMhBhOxjZomBgw/fjnUSjWrwJEHXNsAE8/gQLaM6OyMVl0L53FL1f8CuhQC618yge9DhM2yDw7IBxxteyA6Mp1GNPSx0HFFqisEZD0q7ZxW3PQMaTqM3Gdf+ONTP1tGbEirPn3YB3erqaYwirRNERcOpJqh/h9ahi8A9HLmSgOB0JGwKPS39ZBDU4OplIWhHY4QT6orzbrO/IkNXv7DxKQjt9N/kytVpP7MNgB6Mrepi4FDA2OUNKYCZ31c29SFOAUWjjd6K5r4W3JTbJtxVjME4/ifd6oQQHFdNIl2w== gabriel.souza@sj-ctic-29736
 
 coreos:
-  #So atualiza um no por vez
   update:
     reboot-strategy: "etcd-lock"
 
@@ -30,22 +29,14 @@ coreos:
         ExecStart=/usr/bin/ip addr flush dev eno1
         ExecStart=/usr/bin/ip link set ens6 down
         ExecStart=/usr/bin/ip addr flush dev ens6
+
     - name: systemd-networkd.service
       command: restart
 
     - name: rpc-statd.service
+      command: start
       enable: true
-    - name: mnt-data.mount
-      enable: true
-      content: |
-        [Mount]
-        What=191.36.8.68:/mnt/storage/storage/kubernetes
-        Where=/mnt/data
-        Type=nfs
-        [Install]
-        WantedBy=multi-user.target
-
-    #Etcd2 - Gerenciador de conf do cluster, comunicacao entre os nodes
+      
     - name: etcd2.service
       command: start
       enable: true
@@ -61,7 +52,6 @@ coreos:
           Environment="ETCD_LISTEN_PEER_URLS=http://coreos3.sj.ifsc.edu.br:2380"
           Environment="ETCD_NAME=coreos3"
 
-    #Flannel - Configura uma Subrede virtual para os Containers
     - name: flanneld.service
       drop-ins:
         - name: 50-network-config.conf
@@ -75,7 +65,6 @@ coreos:
       command: start
       enable: true
 
-    #Garantir que todos os containers docker so subam depois do flannel
     - name: docker.service
       command: start
       enable: true
@@ -119,34 +108,35 @@ coreos:
         ExecStop=-/usr/bin/rkt stop --uuid-file=/var/run/kubelet-pod.uuid
         Restart=always
         RestartSec=10
-
         [Install]
         WantedBy=multi-user.target
 
 write_files:
-
   - path: /etc/coreos/update.conf
     permissions: 0644
     owner: root
     content: |
       GROUP=stable
+
   - path: /etc/modprobe.d/bonding.conf
     content: |
       alias bond0 bonding
         options bonding mode=4 miimon=100 lacp_rate=1
+
   - path: /etc/modules
     content: |
       bonding
       mii
+
   - path: /etc/systemd/network/10-en.network
     permissions: 0644
     owner: root
     content: |
       [Match]
       Name=en*
-
       [Network]
       Bond=bond0
+
   - path: /etc/systemd/network/20-bond.netdev
     permissions: 0644
     owner: root
@@ -154,13 +144,13 @@ write_files:
       [NetDev]
       Name=bond0
       Kind=bond
+
   - path: /etc/systemd/network/30-bond-static.network
     permissions: 0644
     owner: root
     content: |
       [Match]
       Name=bond0
-
       [Network]
       DNS=191.36.8.2
       DNS=191.36.8.3
