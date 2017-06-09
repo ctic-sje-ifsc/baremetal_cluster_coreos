@@ -29,14 +29,14 @@ coreos:
         ExecStart=/usr/bin/ip addr flush dev eno1
         ExecStart=/usr/bin/ip link set ens6 down
         ExecStart=/usr/bin/ip addr flush dev ens6
-        
+
     - name: systemd-networkd.service
       command: restart
 
     - name: rpc-statd.service
       command: start
       enable: true
-        
+
     - name: etcd2.service
       command: start
       enable: true
@@ -76,7 +76,6 @@ coreos:
           After=flanneld.service
           [Service]
           ExecStartPre=/usr/bin/mkdir -p /etc/kubernetes/cni
-          EnvironmentFile=/etc/kubernetes/cni/docker_opts_cni.env
 
     - name: kubelet.service
       command: start
@@ -117,17 +116,17 @@ write_files:
     owner: root
     content: |
       GROUP=stable
-      
+
   - path: /etc/modprobe.d/bonding.conf
     content: |
       alias bond0 bonding
         options bonding mode=4 miimon=100 lacp_rate=1
-        
+
   - path: /etc/modules
     content: |
       bonding
       mii
-      
+
   - path: /etc/systemd/network/10-en.network
     permissions: 0644
     owner: root
@@ -136,7 +135,7 @@ write_files:
       Name=en*
       [Network]
       Bond=bond0
-      
+
   - path: /etc/systemd/network/20-bond.netdev
     permissions: 0644
     owner: root
@@ -144,7 +143,7 @@ write_files:
       [NetDev]
       Name=bond0
       Kind=bond
-      
+
   - path: /etc/systemd/network/30-bond-static.network
     permissions: 0644
     owner: root
@@ -164,13 +163,6 @@ write_files:
     content: |
       FLANNELD_IFACE=191.36.8.4
       FLANNELD_ETCD_ENDPOINTS=http://localhost:2379
-
-  - path: /etc/kubernetes/cni/docker_opts_cni.env
-    permissions: 0644
-    owner: root
-    content: |
-      DOCKER_OPT_BIP=""
-      DOCKER_OPT_IPMASQ=""
 
   - path: /etc/kubernetes/cni/net.d/10-flannel.conf
     permissions: 0644
