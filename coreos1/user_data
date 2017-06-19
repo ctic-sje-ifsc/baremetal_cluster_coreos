@@ -94,7 +94,6 @@ coreos:
           After=flanneld.service
           [Service]
           ExecStartPre=/usr/bin/mkdir -p /etc/kubernetes/cni
-          EnvironmentFile=/etc/kubernetes/cni/docker_opts_cni.env
 
     - name: kubelet.service
       command: start
@@ -182,13 +181,6 @@ write_files:
     content: |
       FLANNELD_IFACE=191.36.8.4
       FLANNELD_ETCD_ENDPOINTS=http://localhost:2379
-
-  - path: /etc/kubernetes/cni/docker_opts_cni.env
-    permissions: 0644
-    owner: root
-    content: |
-      DOCKER_OPT_BIP=""
-      DOCKER_OPT_IPMASQ=""
 
   - path: /etc/kubernetes/cni/net.d/10-flannel.conf
     permissions: 0644
