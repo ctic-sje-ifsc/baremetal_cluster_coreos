@@ -35,7 +35,25 @@ coreos:
     - name: rpc-statd.service
       command: start
       enable: true
+      
+    - name: systemd-tinesyncd.service
+      command: stop
+      mask: true
+    - name: ntpd.service
+      command: start
+      enable: true
+      
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set the time zone
 
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone America/Sao_Paulo
+        RemainAfterExit=yes
+        Type=oneshot
+      
     - name: etcd2.service
       command: start
       enable: true
@@ -75,6 +93,7 @@ coreos:
           After=flanneld.service
           [Service]
           ExecStartPre=/usr/bin/mkdir -p /etc/kubernetes/cni
+          EnvironmentFile=/etc/kubernetes/cni/docker_opts_cni.env
 
     - name: kubelet.service
       command: start
@@ -115,17 +134,17 @@ write_files:
     owner: root
     content: |
       GROUP=stable
-
+      
   - path: /etc/modprobe.d/bonding.conf
     content: |
       alias bond0 bonding
         options bonding mode=4 miimon=100 lacp_rate=1
-
+        
   - path: /etc/modules
     content: |
       bonding
       mii
-
+      
   - path: /etc/systemd/network/10-en.network
     permissions: 0644
     owner: root
@@ -134,7 +153,7 @@ write_files:
       Name=en*
       [Network]
       Bond=bond0
-
+      
   - path: /etc/systemd/network/20-bond.netdev
     permissions: 0644
     owner: root
@@ -142,7 +161,7 @@ write_files:
       [NetDev]
       Name=bond0
       Kind=bond
-
+      
   - path: /etc/systemd/network/30-bond-static.network
     permissions: 0644
     owner: root
@@ -162,6 +181,13 @@ write_files:
     content: |
       FLANNELD_IFACE=191.36.8.5
       FLANNELD_ETCD_ENDPOINTS=http://localhost:2379
+
+  - path: /etc/kubernetes/cni/docker_opts_cni.env
+    permissions: 0644
+    owner: root
+    content: |
+      DOCKER_OPT_BIP=""
+      DOCKER_OPT_IPMASQ=""
 
   - path: /etc/kubernetes/cni/net.d/10-flannel.conf
     permissions: 0644
@@ -237,3 +263,22 @@ write_files:
           user: kubelet
         name: kubelet-context
       current-context: kubelet-context
+      
+  - path: /etc/systemd/timesyncd.conf
+    permissions: 0644
+    owner: root
+    content: |
+      [Time]
+      NTP=pool.ntp.br ntp.ufsc.br ntp.cais.rnp.br
+      
+  - path: /etc/ntp.conf
+    content: |
+      server pool.ntp.br
+      server ntp.ufsc.br
+      server ntp.cais.rnp.br
+
+      # - Allow only time queries, at a limited rate.
+      # - Allow all local queries (IPv4, IPv6)
+      restrict default nomodify nopeer noquery limited kod
+      restrict 127.0.0.1
+      restrict [::1]

@@ -36,6 +36,24 @@ coreos:
     - name: rpc-statd.service
       command: start
       enable: true
+      
+    - name: systemd-tinesyncd.service
+      command: stop
+      mask: true
+    - name: ntpd.service
+      command: start
+      enable: true
+      
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set the time zone
+
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone America/Sao_Paulo
+        RemainAfterExit=yes
+        Type=oneshot
 
     - name: etcd2.service
       command: start
@@ -164,7 +182,6 @@ write_files:
       FLANNELD_IFACE=191.36.8.7
       FLANNELD_ETCD_ENDPOINTS=http://localhost:2379
 
-
   - path: /etc/kubernetes/cni/net.d/10-flannel.conf
     permissions: 0644
     owner: root
@@ -239,3 +256,23 @@ write_files:
           user: kubelet
         name: kubelet-context
       current-context: kubelet-context
+  
+  - path: /etc/systemd/timesyncd.conf
+    permissions: 0644
+    owner: root
+    content: |
+      [Time]
+      NTP=pool.ntp.br ntp.ufsc.br ntp.cais.rnp.br
+      
+  - path: /etc/ntp.conf
+    content: |
+      server pool.ntp.br
+      server ntp.ufsc.br
+      server ntp.cais.rnp.br
+
+      # - Allow only time queries, at a limited rate.
+      # - Allow all local queries (IPv4, IPv6)
+      restrict default nomodify nopeer noquery limited kod
+      restrict 127.0.0.1
+      restrict [::1]
+      
