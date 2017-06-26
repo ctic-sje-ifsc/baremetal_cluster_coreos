@@ -14,22 +14,18 @@ Atualmente possuimos as seguintes especificações de Hardware:
 * * 2 x 16 GB DDR4 2133 (previsão de 10 x)
 * * 4 x Broadcom BCM5720 em agregação de link LACP (IEEE802.3ad)
 
-Totalizando no cluster __96 GB de memória RAM__ e __36 Núcleos de processamento__.
+__Totalizando no cluster 96 GB de memória RAM e 36 Núcleos de processamento.__
 
-O Sistema Operacional instalado nos nossos hosts é o [CoreOS Container Linux](https://coreos.com/os/docs/latest/).
+
+# # # O Sistema Operacional instalado nos nossos hosts é o [CoreOS Container Linux](https://coreos.com/os/docs/latest/).
 
 "*O CoreOS é um sistema operacional Linux desenvolvido para ser tolerante à falhas, distribuído e fácil de escalar. Ele tem sido utilizado por times de operações e ambientes alinhados com a cultura DevOps. A principal diferença do CoreOS para outras distribuições Linux minimalistas é o fato de ser desenvolvido para suportar nativamente o funcionamento em cluster, possuir poucos binários e não possuir um sistema de empacotamento (como apt-get ou yum). O sistema operacional consite apenas no Kernel e no systemd. Ele depende de containers para gerenciar a instalação de software e aplicações no sistema operacional, provendo um alto nível de abstração. Desta forma, um serviço e todas as suas dependências são empacotadas em um container e podem ser executadas em uma ou diversas máquinas com o CoreOS.*" Fonte: http://www.ricardomartins.com.br/coreos-o-que-e-e-como-funciona/
 
 Para as configurações, como é sugerido na documentação oficial do CoreOS, utilizamos tudo em um arquivo [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html), que pode ser encontrado em cada pasta coreos0, coreos1 ... de cada nó. Por exemplo: [aqui](coreos/user_data).
 
+# # Podemos destacar as seguintes configurações:
 
-
-Por consequência, o uso mais intensivo de contêineres e, claro, [CoreOS](https://coreos.com) .
-E, nesse movimento: [etcd](https://coreos.com/etcd), [flannel](https://coreos.com/flannel/), [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html)
-
-Podemos destacar as seguintes configurações:
-
-* Configuração par amanter a versão stable do CoreOS, da janela para reinicio das máquinas em atualização automática e garantindo que somente um nó do cluster reinicie por vez:
+* Configuração para amanter a versão [stable](https://coreos.com/releases) do CoreOS, da janela para reinicio das máquinas em atualização automática e garantindo que somente um nó do cluster reinicie por vez:
 
 ```yaml
   update:
@@ -106,27 +102,6 @@ Podemos destacar as seguintes configurações:
       Gateway=191.36.8.30
       Domains=sj.ifsc.edu.br
 ```
-    - name: rpc-statd.service
-      command: start
-      enable: true
-      
-    - name: systemd-tinesyncd.service
-      command: stop
-      mask: true
-    - name: ntpd.service
-      command: start
-      enable: true
-      
-    - name: settimezone.service
-      command: start
-      content: |
-        [Unit]
-        Description=Set the time zone
-
-        [Service]
-        ExecStart=/usr/bin/timedatectl set-timezone America/Sao_Paulo
-        RemainAfterExit=yes
-        Type=oneshot
 
 * Configuração do etcd, que fornece descoberta de configuração e serviço compartilhada para clusters do Container Linux(https://coreos.com/etcd/docs/2.3.7/clustering.html):
 
@@ -165,6 +140,24 @@ Podemos destacar as seguintes configurações:
 
 ```yaml
       
+    - name: systemd-tinesyncd.service
+      command: stop
+      mask: true
+    - name: ntpd.service
+      command: start
+      enable: true
+      
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set the time zone
+
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone America/Sao_Paulo
+        RemainAfterExit=yes
+        Type=oneshot
+
    - path: /etc/systemd/timesyncd.conf
     permissions: 0644
     owner: root
@@ -183,5 +176,4 @@ Podemos destacar as seguintes configurações:
       restrict default nomodify nopeer noquery limited kod
       restrict 127.0.0.1
       restrict [::1]
-      
 ```
