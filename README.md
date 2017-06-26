@@ -17,15 +17,15 @@ Atualmente possuimos as seguintes especificações de Hardware:
 __Totalizando no cluster 96 GB de memória RAM e 36 Núcleos de processamento.__
 
 
-# # # O Sistema Operacional instalado nos nossos hosts é o [CoreOS Container Linux](https://coreos.com/os/docs/latest/).
+### O Sistema Operacional instalado nos nossos hosts é o [CoreOS Container Linux](https://coreos.com/os/docs/latest/).
 
 "*O CoreOS é um sistema operacional Linux desenvolvido para ser tolerante à falhas, distribuído e fácil de escalar. Ele tem sido utilizado por times de operações e ambientes alinhados com a cultura DevOps. A principal diferença do CoreOS para outras distribuições Linux minimalistas é o fato de ser desenvolvido para suportar nativamente o funcionamento em cluster, possuir poucos binários e não possuir um sistema de empacotamento (como apt-get ou yum). O sistema operacional consite apenas no Kernel e no systemd. Ele depende de containers para gerenciar a instalação de software e aplicações no sistema operacional, provendo um alto nível de abstração. Desta forma, um serviço e todas as suas dependências são empacotadas em um container e podem ser executadas em uma ou diversas máquinas com o CoreOS.*" Fonte: http://www.ricardomartins.com.br/coreos-o-que-e-e-como-funciona/
 
-Para as configurações, como é sugerido na documentação oficial do CoreOS, utilizamos tudo em um arquivo [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html), que pode ser encontrado em cada pasta coreos0, coreos1 ... de cada nó. Por exemplo: [aqui](coreos/user_data).
+Para a gerência das configurações utilizamos, como sugerido na documentação oficial do CoreOS, tudo em um arquivo [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html), que pode ser encontrado em cada pasta coreos0, coreos1 ... para cada nó. Por exemplo: [aqui](coreos/user_data).
 
-# # Podemos destacar as seguintes configurações:
+## Podemos destacar as seguintes configurações:
 
-* Configuração para amanter a versão [stable](https://coreos.com/releases) do CoreOS, da janela para reinicio das máquinas em atualização automática e garantindo que somente um nó do cluster reinicie por vez:
+* Manter a versão [stable](https://coreos.com/releases) do CoreOS, utilizando determinada janela para reinicio das máquinas em atualização automática e garantindo que somente um nó do cluster reinicie por vez:
 
 ```yaml
   update:
@@ -120,7 +120,10 @@ Para as configurações, como é sugerido na documentação oficial do CoreOS, u
           Environment="ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379"
           Environment="ETCD_LISTEN_PEER_URLS=http://coreos0.sj.ifsc.edu.br:2380"
           Environment="ETCD_NAME=coreos0"
+```
+* Configuração do flannel, é descrito no projeto [kubernetes](https://github.com/ctic-sje-ifsc/kubernetes):
 
+```yaml
     - name: flanneld.service
       drop-ins:
         - name: 50-network-config.conf
@@ -135,8 +138,7 @@ Para as configurações, como é sugerido na documentação oficial do CoreOS, u
       enable: true
 ```
 
-
-* Configuração de data e time zone(https://coreos.com/os/docs/latest/configuring-date-and-timezone.html):
+* Configuração de data e timezone(https://coreos.com/os/docs/latest/configuring-date-and-timezone.html):
 
 ```yaml
       
