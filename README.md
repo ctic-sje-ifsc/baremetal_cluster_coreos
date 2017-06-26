@@ -21,7 +21,7 @@ __Totalizando no cluster 96 GB de memória RAM e 36 Núcleos de processamento.__
 
 "*O CoreOS é um sistema operacional Linux desenvolvido para ser tolerante à falhas, distribuído e fácil de escalar. Ele tem sido utilizado por times de operações e ambientes alinhados com a cultura DevOps. A principal diferença do CoreOS para outras distribuições Linux minimalistas é o fato de ser desenvolvido para suportar nativamente o funcionamento em cluster, possuir poucos binários e não possuir um sistema de empacotamento (como apt-get ou yum). O sistema operacional consite apenas no Kernel e no systemd. Ele depende de containers para gerenciar a instalação de software e aplicações no sistema operacional, provendo um alto nível de abstração. Desta forma, um serviço e todas as suas dependências são empacotadas em um container e podem ser executadas em uma ou diversas máquinas com o CoreOS.*" Fonte: http://www.ricardomartins.com.br/coreos-o-que-e-e-como-funciona/
 
-Para a gerência das configurações utilizamos, como sugerido na documentação oficial do CoreOS, tudo em um arquivo [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html), que pode ser encontrado em cada pasta coreos0, coreos1 ... para cada nó. Por exemplo: [aqui](coreos/user_data).
+Para a gerência das configurações utilizamos, como sugerido na documentação oficial do CoreOS, tudo em um arquivo [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html), que pode ser encontrado em cada pasta coreos0, coreos1 ... para cada nó. Por exemplo: [aqui](https://github.com/ctic-sje-ifsc/coreos/blob/master/coreos0/user_data).
 
 ## Podemos destacar as seguintes configurações:
 
