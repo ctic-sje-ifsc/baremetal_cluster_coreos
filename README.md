@@ -5,14 +5,14 @@ Nesse repositório é descrito a configuração do [Cluster Coreos](https://core
 Atualmente possuimos as seguintes especificações de Hardware:
 
 * 4 x HP Z220: 
-* * 1 x Intel(R) Xeon(R) CPU E3-1225 V2 @ 3.20GHz 
-* * 4 x 4 GB DDR3-1600
-* * 2 x Gigabit Ethernet (Intel 82579LM e Realtek RTL8169) em agregação de link LACP (IEEE802.3ad)
+  * 1 x Intel(R) Xeon(R) CPU E3-1225 V2 @ 3.20GHz 
+  * 4 x 4 GB DDR3-1600
+  * 2 x Gigabit Ethernet (Intel 82579LM e Realtek RTL8169) em agregação de link LACP (IEEE802.3ad)
 
 * 1 x Dell PowerEdge R630: 
-* * 1 x Intel(R) Xeon(R) CPU E5-2650 v3 @ 2.30GHz
-* * 2 x 16 GB DDR4 2133 (previsão de 8 x)
-* * 4 x Broadcom BCM5720 em agregação de link LACP (IEEE802.3ad)
+  * 1 x Intel(R) Xeon(R) CPU E5-2650 v3 @ 2.30GHz
+  * 2 x 16 GB DDR4 2133 (previsão de 8 x)
+  * 4 x Broadcom BCM5720 em agregação de link LACP (IEEE802.3ad)
 
 __Totalizando no cluster 96 GB de memória RAM(previsão de 192 GB) e 36 Núcleos de processamento.__
 
