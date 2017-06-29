@@ -11,10 +11,10 @@ Atualmente possuimos as seguintes especificações de Hardware:
 
 * 1 x Dell PowerEdge R630: 
   * 1 x Intel(R) Xeon(R) CPU E5-2650 v3 @ 2.30GHz
-  * 2 x 16 GB DDR4 2133 (previsão de 8 x)
+  * 8 x 16 GB DDR4 2133 ECC
   * 4 x Broadcom BCM5720 em agregação de link LACP (IEEE802.3ad)
 
-__Totalizando no cluster 96 GB de memória RAM(previsão de 192 GB) e 36 Núcleos de processamento.__
+__Totalizando no cluster 192 GB de memória RAM e 36 Núcleos de processamento.__
 
 
 ### O Sistema Operacional instalado nos nossos hosts é o [CoreOS Container Linux](https://coreos.com/os/docs/latest/).
