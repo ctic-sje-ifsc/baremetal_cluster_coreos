@@ -1,31 +1,26 @@
-# Cluster CoreOS
+# Cluster CoreOS Container Linux
 
-Nesse repositório é descrito a configuração do [Cluster Coreos](https://coreos.com/os/docs/latest) que dá suporte ao projeto [Kubernetes](https://github.com/ctic-sje-ifsc/kubernetes).
+Nesse repositório é descrita a configuração do [_cluster_ com CoreOS Container Linux](https://coreos.com/os/docs/latest) que dá suporte ao [Kubernetes](https://github.com/ctic-sje-ifsc/kubernetes).
 
-Atualmente possuimos as seguintes especificações de Hardware:
+Atualmente o _cluster_ as seguintes especificações de _hardware_:
 
 * 1 x Dell PowerEdge R630: 
   * 1 x Intel(R) Xeon(R) CPU E5-2650 v3 @ 2.30GHz
-  * 8 x 16 GB DDR4 2133 ECC
+  * 8 x 16 GB DDR4 2133 ECC = 128GB de RAM
   * 4 x Broadcom BCM5720 em agregação de link LACP (IEEE802.3ad)
   
 * 4 x HP Z220: 
   * 1 x Intel(R) Xeon(R) CPU E3-1225 V2 @ 3.20GHz 
-  * 4 x 4 GB DDR3-1600
-  * 2 x Gigabit Ethernet (Intel 82579LM e Realtek RTL8169) em agregação de link LACP (IEEE802.3ad)
+  * 4 x 4 GB DDR3-1600 = 16GB de RAM 
+  * 2 x Gigabit Ethernet (Intel 82579LM e Realtek RTL8169) em agregação de enlace com [LACP](https://standards.ieee.org/findstds/standard/802.1AX-2008.html)
 
-__Totalizando no cluster 192 GB de memória RAM e 36 Núcleos de processamento.__
+__Total: 36 núcleos de processamento e 192 GB de RAM.__
 
+Para a gerência das configurações foi utilizado o arquivo [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html), o qual é específico para cada máquina física: `coreos0`, `coreos1` etc.
 
-### O Sistema Operacional instalado nos nossos hosts é o [CoreOS Container Linux](https://coreos.com/os/docs/latest/).
+## Destaques da configuração
 
-"*O CoreOS é um sistema operacional Linux desenvolvido para ser tolerante à falhas, distribuído e fácil de escalar. Ele tem sido utilizado por times de operações e ambientes alinhados com a cultura DevOps. A principal diferença do CoreOS para outras distribuições Linux minimalistas é o fato de ser desenvolvido para suportar nativamente o funcionamento em cluster, possuir poucos binários e não possuir um sistema de empacotamento (como apt-get ou yum). O sistema operacional consite apenas no Kernel e no systemd. Ele depende de containers para gerenciar a instalação de software e aplicações no sistema operacional, provendo um alto nível de abstração. Desta forma, um serviço e todas as suas dependências são empacotadas em um container e podem ser executadas em uma ou diversas máquinas com o CoreOS.*" Fonte: http://www.ricardomartins.com.br/coreos-o-que-e-e-como-funciona/
-
-Para a gerência das configurações utilizamos, como sugerido na documentação oficial do CoreOS, tudo em um arquivo [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html), que pode ser encontrado em cada pasta coreos0, coreos1 ... para cada nó. Por exemplo: [aqui](https://github.com/ctic-sje-ifsc/coreos/blob/master/coreos0/user_data).
-
-## Podemos destacar as seguintes configurações:
-
-* Manter a versão [stable](https://coreos.com/releases) do CoreOS, utilizando determinada janela para reinicio das máquinas em atualização automática e garantindo que somente um nó do cluster reinicie por vez:
+* Janela de atualização da versão [estável](https://coreos.com/releases) do sistema operacional:
 
 ```yaml
   update:
@@ -42,7 +37,7 @@ Para a gerência das configurações utilizamos, como sugerido na documentação
       GROUP=stable
 ```
 
-* Configuração da rede e da agregação de link LACP:
+* Configuração da rede e da agregação de enlace com LACP:
 
 ```yaml
     - name: down-interfaces.service
@@ -103,7 +98,7 @@ Para a gerência das configurações utilizamos, como sugerido na documentação
       Domains=sj.ifsc.edu.br
 ```
 
-* Configuração do etcd, que fornece descoberta de configuração e serviço compartilhada para clusters do Container Linux(https://coreos.com/etcd/docs/2.3.7/clustering.html):
+* Configuração do `etcd`, o qual fornece [descoberta de configuração e serviço compartilhado para o _cluster_](https://coreos.com/etcd/docs/2.3.7/clustering.html):
 
 ```yaml
     - name: etcd2.service
@@ -121,7 +116,8 @@ Para a gerência das configurações utilizamos, como sugerido na documentação
           Environment="ETCD_LISTEN_PEER_URLS=http://coreos0.sj.ifsc.edu.br:2380"
           Environment="ETCD_NAME=coreos0"
 ```
-* Configuração do flannel, é descrito no projeto [kubernetes](https://github.com/ctic-sje-ifsc/kubernetes):
+
+* Configuração do `flannel` via descoberta com registros SRV DNS:
 
 ```yaml
     - name: flanneld.service
@@ -138,7 +134,7 @@ Para a gerência das configurações utilizamos, como sugerido na documentação
       enable: true
 ```
 
-* Configuração de data e timezone(https://coreos.com/os/docs/latest/configuring-date-and-timezone.html):
+* Configuração de [data e fuso horário](https://coreos.com/os/docs/latest/configuring-date-and-timezone.html):
 
 ```yaml
       
