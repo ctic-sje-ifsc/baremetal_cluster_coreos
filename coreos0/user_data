@@ -20,6 +20,24 @@ coreos:
     window-length: 1h
 
   units:
+
+    - name: mnt-ssd.mount
+      enable: true
+      content: |
+        [Mount]
+        What=/dev/sdc1
+        Where=/mnt/ssd
+        Type=ext4
+        [Install]
+        WantedBy=multi-user.target
+
+    - name: rpc-mountd.service
+      command: start
+      enable: true
+    - name: nfsd.service
+      command: start
+      enable: truestrong text
+
     - name: down-interfaces.service
       command: start
       content: |
@@ -132,6 +150,10 @@ coreos:
         WantedBy=multi-user.target
 
 write_files:
+  - path: /etc/exports
+    permissions: '0644'
+    content: /mnt/ssd/matlab 191.36.8.0/27(rw,async,no_subtree_check,no_root_squash,fsid=0)
+
   - path: /etc/coreos/update.conf
     permissions: 0644
     owner: root
