@@ -1,6 +1,6 @@
 # Cluster CoreOS Container Linux
 
-Nesse repositório é descrita a configuração do [_cluster_ com CoreOS Container Linux](https://coreos.com/os/docs/latest) que dá suporte ao [Kubernetes](https://github.com/ctic-sje-ifsc/kubernetes).
+Nesse repositório é descrita a configuração do [_cluster_ com CoreOS Container Linux](https://coreos.com/os/docs/latest) que dá suporte ao [Serviços em Kubernetes](https://github.com/ctic-sje-ifsc/kubernetes).
 
 Atualmente o _cluster_ as seguintes especificações de _hardware_:
 
